@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>計算機</title>
+  <style>
+    /* 最小限のスタイル。デザインはあとでAIに追加してもらう */
+    body {
+      text-align: center;
+      font-family: sans-serif;
+    }
+    #result {
+      /* id="result" の要素のスタイル */
+      font-size: 48px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>計算機</h1>
+
+  <!-- 数値を入力する欄。type="number" で数字専用の入力欄になる -->
+  <input type="number" id="num1" value="0">
+  <input type="number" id="num2" value="0">
+
+  <!-- 演算子ボタン。onclick で押したときに呼ぶ関数と引数を指定 -->
+  <button onclick="calculate('+')">+</button>
+  <button onclick="calculate('-')">-</button>
+  <button onclick="calculate('×')">×</button>
+  <button onclick="calculate('÷')">÷</button>
+
+  <!-- 計算結果を表示する場所。id をつけてJSから操作できるようにする -->
+  <p id="result">ここに結果が表示されます</p>
+
+  <script>
+    // ── 関数 ──────────────────────────────────────────────────────
+    // calculate = 計算を行う関数。押されたボタンの演算子が引数として渡される
+    function calculate(operator) {
+
+      // ── 変数 ──────────────────────────────────────────────────
+      // Number() → 文字列を数値に変換する
+      // document.getElementById('num1').value → id="num1" の入力欄の値を取得
+      let a = Number(document.getElementById('num1').value);
+      let b = Number(document.getElementById('num2').value);
+      let result;  // 計算結果を入れる箱（まだ中身は空）
+
+      // ── 条件分岐 ──────────────────────────────────────────────
+      // どの演算子ボタンが押されたかで処理を変える
+      if (operator === '+') {
+        result = a + b;
+      } else if (operator === '-') {
+        result = a - b;
+      } else if (operator === '×') {
+        result = a * b;
+      } else if (operator === '÷') {
+        if (b === 0) {
+          result = 'エラー: 0では割れません';
+        } else {
+          result = a / b;
+        }
+      }
+
+      // 計算結果を画面に表示する（DOM操作）
+      document.getElementById('result').textContent = result;
+    }
+  </script>
+
+</body>
+</html>
